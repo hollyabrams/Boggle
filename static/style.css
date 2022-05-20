@@ -1,0 +1,101 @@
+body{
+    display: flex;
+    flex-direction: column;
+	font-family:Arial, Verdana, Sans-serif;
+    background-color: #ffffff;
+    margin: auto 0;
+    align-items: center;
+}
+
+.header{
+    font-size:36px;
+    color: black;
+}
+
+.container {
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
+    flex-direction: row;
+    margin: 10px;
+}
+
+#scores {
+    width: 33%;
+    color: #F86300;
+}
+
+#totals {
+    width: 33%;
+    color: #547682;
+}
+
+#numbers {
+    width: 33%;
+    color: #547682;
+}
+
+table {
+    margin: 10px 40px 10px 40px;
+}
+
+.playground {
+    display: flex;
+    flex-direction: column;
+    background:#1F4E78;
+    border-radius: 35px;
+    border: solid 5px #547682;
+  }
+
+
+td {
+    height: 100px;
+    border-radius: 25px; 
+    background-color:#Feffff;
+    text-transform: capitalize;
+    color:black;
+    font-weight: bold;
+    font-size: 52px;
+    text-align: center;
+}
+
+  #checkForm{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 10px;
+  }
+
+  input[type="text"]{
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: solid 1px #1F4E78;
+    border-radius: 3px;
+    height: 40px;
+    font-size: 22px;
+    width: 200px;
+    margin-right:10px;
+    text-align: center;
+}
+
+#btn, 
+#hint>button{
+	background-color:#F86300;
+	border-radius:3px;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:24px;
+	padding:6px 30px;
+}
+
+#btn:active, 
+#hint>button:active{
+    box-shadow: 0px 0px 2px rgba(0,0,0,.7);
+  }
+
+#hint {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

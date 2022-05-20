@@ -4,28 +4,37 @@
 <div class="header">
     <h1>Welcome to Boggle!</h1>
 </div>
-<div id="timer">Time: <span>60</span></div>
-<div id="score">Score: <span>{{session['user_score']}}</span></div>
-<div id="games">Game No: <span>{{session['game_count']}}</span></div>
-<section class="gameboard">
+<div class="container">
+    <div id="scores">
+        <div id="score">Current Score: <span>0</span></div>
+        <div id="result">Server Result: <span>0</span></div>
+    </div>
+    <div id="totals">
+        <div id="timer">Time: <span>60</span></div>
+        <div id="total_score">Total Score: <span>{{session['user_score']}}</span></div>
+    </div>
+    <div id="numbers">
+        <div id="total_games">Game Number: <span>{{session['game_count']}}</span></div>
+    </div>
+</div>
+<section class="playground">
     <table id="game">
         <tbody>
             {% for row in letters_board %}
             <tr>
                 {% for letter in row%}
                 <td>{{letter}}</td>
-                { endfor }
+                {% endfor %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </section>
-<div id="hint"><p>Hint</p><button>Get a hint</button></div>
-<div id="score">Current Score: <span>0</span></div>
-<div id="result">Server result: </div>
+<section>
 <form id="checkForm">
     <input id="checkWordField" type="text" name="word" placeholder="Your suggestion">
-    <button id="btn" data-text="word">Check word!</button>
+    <button id="btn" data-text="word">Check Word</button>
 </form>
-
+<div id="hint"><button>Get a hint</button></div>
+</section>
 {% endblock %}
