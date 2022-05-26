@@ -8,31 +8,31 @@ body{
 }
 
 .header{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
     font-size:36px;
     color: black;
 }
 
 .container {
     display: flex;
-    font-size: 18px;
-    font-weight: bold;
     flex-direction: row;
-    margin: 10px;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-#scores {
-    width: 33%;
-    color: #F86300;
+.score {
+    color: tomato;
 }
 
-#totals {
-    width: 33%;
-    color: #547682;
+.timer {
+    color: green;
 }
 
-#numbers {
-    width: 33%;
-    color: #547682;
+.highscore {
+    color: #1F4E78;
 }
 
 table {
@@ -50,6 +50,7 @@ table {
 
 td {
     height: 100px;
+    width: 100px;
     border-radius: 25px; 
     background-color:#Feffff;
     text-transform: capitalize;
@@ -79,9 +80,8 @@ td {
     text-align: center;
 }
 
-#btn, 
-#hint>button{
-	background-color:#F86300;
+button {
+	background-color:tomato;
 	border-radius:3px;
 	cursor:pointer;
 	color:#ffffff;
@@ -89,13 +89,20 @@ td {
 	padding:6px 30px;
 }
 
-#btn:active, 
-#hint>button:active{
+button:active {
     box-shadow: 0px 0px 2px rgba(0,0,0,.7);
   }
 
-#hint {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
+  .msg {
+    padding: 1em;
+  }
+  
+  .msg.ok {
+    color: white;
+    background-color: green;
+  }
+  
+  .msg.err {
+    color: white;
+    background-color: tomato;
+  }

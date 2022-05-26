@@ -1,46 +1,43 @@
 from unittest import TestCase
 from app import app
 from flask import session
-from boggle import Boggle
-from flask import json
 
 class FlaskTests(TestCase):
 
     # TODO -- write tests for every view function / feature!
 
-    def test_home_page(self):
-        with app.test_client() as client:
-            resp = client.get('/')
-            html = resp.get_data(as_text=True)
+    def setUp(self):
+        self.client = app.test_client()
+        app.config['TESTING'] = True
 
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1>Welcome to Boggle!</h1>', html)
+    def test_homepage(self):
+        with self.client:
+            response = self.client.get('/')
+            self.assertIn('board', session)
+            self.assertIsNone(session.get('highscore'))
+            self.assertIsNone(session.get('nplays'))
+            self.assertIn(b'<p>High Score:', response.data)
+            self.assertIn(b'Score:', response.data)
+            self.assertIn(b'Seconds Left:', response.data)
 
-    def test_check_word(self):
-        with app.test_client() as client:
-            client.get('/')
-            resp = client.post('/word', data=json.dumps(dict(word='apple')), content_type='application/json')
-            html = resp.get_data(as_text=True)
+    def test_valid_word(self):
+        with self.client as client:
+            with client.session_transaction() as sess:
+                sess['board'] = [["D", "O", "G", "G", "G"], 
+                                     ["D", "O", "G", "G", "G"], 
+                                     ["D", "O", "G", "G", "G"], 
+                                     ["D", "O", "G", "G", "G"], 
+                                     ["D", "O", "G", "G", "G"]]
+        response = self.client.get('/check-word?word=dog')
+        self.assertEqual(response.json['result'], 'ok')
 
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('result', html)
+    def test_invalid_word(self):
+        self.client.get('/')
+        response = self.client.get('check-word?word=impossible')
+        self.assertEqual(response.json['result'], 'not-on-board')
 
-    def test_user_score(self):
-        with app.test_client() as client:
-            client.get('/')
-            resp = client.post('/score', data=json.dumps(dict(score='1')), content_type='application/json')
-            html = resp.get_data(as_text=True)
-
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('1', html)
-
-    def test_user_score(self):
-        with app.test_client() as client:
-            client.get('/')
-            resp = client.get('/hint')
-            html = resp.get_data(as_text=True)
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('hint_word', html)
-
-
-
+    def non_english_word(self):
+        self.client.get('/')
+        response = self.client.get('/check-word?word=fsjdakfkldsfjdslkfjdlksf')
+        self.assertEqual(response.json['result'], 'not-word')
+        

@@ -2,27 +2,25 @@
 {% block title %}Boggle Game{% endblock %}
 {% block body %}
 <div class="header">
-    <h1>Welcome to Boggle!</h1>
+    <h1>Let's Play Boggle!</h1>
 </div>
 <div class="container">
-    <div id="scores">
-        <div id="score">Current Score: <span>0</span></div>
-        <div id="result">Server Result: <span>0</span></div>
+    <div>
+        <p>Score: <b class="score">0</b></p>
     </div>
-    <div id="totals">
-        <div id="timer">Time: <span>60</span></div>
-        <div id="total_score">Total Score: <span>{{session['user_score']}}</span></div>
+    <div>
+        <p>Seconds Left: <b class="timer"></b></p> 
     </div>
-    <div id="numbers">
-        <div id="total_games">Game Number: <span>{{session['game_count']}}</span></div>
+    <div>
+        <p>High Score: <b class="highscore">{{ highscore }}</b> in {{ nplays }} plays</p> 
     </div>
 </div>
 <section class="playground">
-    <table id="game">
+    <table class="board">
         <tbody>
-            {% for row in letters_board %}
+            {% for row in board %}
             <tr>
-                {% for letter in row%}
+                {% for letter in row %}
                 <td>{{letter}}</td>
                 {% endfor %}
             </tr>
@@ -31,10 +29,13 @@
     </table>
 </section>
 <section>
-<form id="checkForm">
-    <input id="checkWordField" type="text" name="word" placeholder="Your suggestion">
-    <button id="btn" data-text="word">Check Word</button>
-</form>
-<div id="hint"><button>Get a hint</button></div>
+    <form id="checkForm" method='POST' class="add-word">
+    <input type="text" name="word" class="word" autofocus>
+    <button>Enter</button>
+    </form>
+
+    <p class="msg"></p>
+    <ul class="words"></ul>
 </section>
+
 {% endblock %}
